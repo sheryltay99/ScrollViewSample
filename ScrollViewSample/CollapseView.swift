@@ -7,21 +7,32 @@
 
 import UIKit
 
-class CollapseView: UIView {
+@IBDesignable class CollapseView: UIView {
     
+//    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var contentView: UIView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
-   
-    var imageMinHeight: CGFloat = 200
-    var imageMaxHeight: CGFloat = 400
-    var delegate: UIViewController? {
+    
+    @IBOutlet weak var delegate: UIViewController? {
         didSet {
             tableView.delegate = delegate as? UITableViewDelegate
             tableView.dataSource = delegate as? UITableViewDataSource
         }
     }
+   
+    @IBInspectable
+    var imageMinHeight: CGFloat = 200
+    
+    @IBInspectable
+    var imageMaxHeight: CGFloat = 400
+//    var delegate: UIViewController? {
+//        didSet {
+//            tableView.delegate = delegate as? UITableViewDelegate
+//            tableView.dataSource = delegate as? UITableViewDataSource
+//        }
+//    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -38,11 +49,6 @@ class CollapseView: UIView {
         commonInit()
     }
     
-    func setImageHeight(imageMinHeight: CGFloat, imageMaxHeight: CGFloat) {
-        self.imageMinHeight = imageMinHeight
-        self.imageMaxHeight = imageMaxHeight
-    }
-    
     private func commonInit() {
         Bundle.main.loadNibNamed("CollapseView", owner: self, options: nil)
         contentView.translatesAutoresizingMaskIntoConstraints = false
@@ -51,6 +57,8 @@ class CollapseView: UIView {
         contentView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         contentView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         contentView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        
+//        scrollView.delegate = self
         
     }
     
@@ -69,3 +77,20 @@ class CollapseView: UIView {
     }
     
 }
+
+//extension CollapseView: UIScrollViewDelegate {
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        let y: CGFloat = scrollView.contentOffset.y
+//        let newImageHeight: CGFloat = imageHeightConstraint.constant - y
+//
+//        if newImageHeight > imageMaxHeight {
+//            imageHeightConstraint.constant = imageMaxHeight
+//        } else if newImageHeight < imageMinHeight {
+//            imageHeightConstraint.constant = imageMinHeight
+//        } else {
+//            imageHeightConstraint.constant = newImageHeight
+//            scrollView.contentOffset.y = 0 // block scroll view
+//        }
+//    }
+//}
+

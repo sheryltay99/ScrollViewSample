@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        collapseView.delegate = self
+        //collapseView.delegate = self
 //        collapseView = CollapseView(delegate: self)
     }
     
